@@ -48,7 +48,7 @@ def upload():
         make_response('No session', 400)
     word = request.args.get('word')
     audio_data = request.data
-    filename = word + '_' + session_id + '_' + uuid.uuid4().hex + '.ogg'
+    filename = word + '_' + session_id + '_' + uuid.uuid4().hex + '.wav'
     secure_name = secure_filename(filename)
     # Left in for debugging purposes. If you comment this back in, the data
     # will be saved to the local file system.
@@ -58,7 +58,7 @@ def upload():
     gcs = storage.Client()
     bucket = gcs.get_bucket(CLOUD_STORAGE_BUCKET)
     blob = bucket.blob(secure_name)
-    blob.upload_from_string(audio_data, content_type='audio/ogg')
+    blob.upload_from_string(audio_data, content_type='audio/wav')
     return make_response('All good')
 
 # CSRF protection, see http://flask.pocoo.org/snippets/3/.
