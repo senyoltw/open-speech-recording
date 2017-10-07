@@ -5,6 +5,6 @@ services:
     ports:
      - "5000:5000"
     volumes:
-     - ./upload:./upload
+     - ./upload:/usr/src/app/upload
     environment:
      - SESSION_SECRET_KEY: a427d62b1f748b7af2a965c88a99005

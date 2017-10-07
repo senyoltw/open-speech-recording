@@ -43,8 +43,8 @@ def upload():
         make_response('No session', 400)
     word = request.args.get('word')
     audio_data = request.data
-    filename = 'upload/' + word + '_' + session_id + '_' + uuid.uuid4().hex + '.wav'
-    secure_name = secure_filename(filename)
+    filename = word + '_' + session_id + '_' + uuid.uuid4().hex + '.wav'
+    secure_name = 'upload/' + secure_filename(filename)
     # Left in for debugging purposes. If you comment this back in, the data
     # will be saved to the local file system.
     with open(secure_name, 'wb') as f:
@@ -69,4 +69,4 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 app.secret_key = os.environ['SESSION_SECRET_KEY']
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
